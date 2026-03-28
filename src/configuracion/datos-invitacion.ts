@@ -1,27 +1,20 @@
 import type { ConfiguracionInvitacion } from '../tipos/invitacion'
 
-export interface ConfiguracionExtendida extends ConfiguracionInvitacion {
-  formulaDuracion: string
-  formulaInicio: string
-}
+
 
 const env = import.meta.env
 
 const whatsapp = (env.VITE_WHATSAPP || '+59173865661').replace('+', '')
 const mensajeWa = encodeURIComponent(env.VITE_MENSAJE_WHATSAPP || '¡Hola! Confirmo mi asistencia al cumpleaños de "Graviel" 🎂🃏')
 
-export const configuracion: ConfiguracionExtendida = {
-  nombreCumpleanero: `"${env.VITE_NOMBRE_CUMPLEANERO || 'Graviel'}"`,
-  edadCumplir: Number(env.VITE_EDAD_CUMPLIR) || 22,
-  edadFormula: env.VITE_FORMULA_EDAD || "\\sum_{k=1}^{3} k! + \\int_{0}^{\\pi/2} 10 \\sin(x) \\, dx + \\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}",
+export const configuracion: ConfiguracionInvitacion = {
+  nombreCumpleanero: env.VITE_NOMBRE_CUMPLEANERO || "Graviel",
+  edadCumplir: env.VITE_EDAD_CUMPLIR || "\\sum_{k=1}^{3} k! + \\int_{0}^{\\pi/2} 10 \\sin(x) \\, dx + \\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}",
   fotoCumpleanero: "/imagenes/foto-cumpleanero.jpg",
   
-  formulaDuracion: env.VITE_FORMULA_DURACION || "T(x) = T_0 + k \\cdot \\ln(x + 1) \\quad (\\text{x = asistentes})",
-  formulaInicio: env.VITE_FORMULA_INICIO || "T_0 = 8:00 \\text{ PM}",
-
   fechaEvento: env.VITE_FECHA_EVENTO || "2026-05-15T20:00:00",
-  horaInicio: env.VITE_HORA_INICIO || "8:00 PM",
-  horaFin: env.VITE_HORA_FIN || "2:00 AM",
+  horaInicio: env.VITE_HORA_INICIO || "T_0 = 8:00 \\text{ PM}",
+  horaFin: env.VITE_HORA_FIN || "T(x) = T_0 + k \\cdot \\ln(x + 1) \\quad (\\text{x = asistentes})",
   nombreLugar: env.VITE_NOMBRE_LUGAR || "MOOZ - RESTOBAR",
   direccion: env.VITE_DIRECCION || "Estados Unidos 692, Sucre",
   mensajePersonalizado: env.VITE_MENSAJE || "¡Ven a celebrar conmigo este día tan especial! 🎉",

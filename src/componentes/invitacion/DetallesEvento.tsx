@@ -1,6 +1,6 @@
 import { Calendar, Clock, MapPin, Hourglass } from 'lucide-react'
 import { motion } from 'motion/react'
-import { FormulaMath } from '../compartidos/FormulaMath'
+import { TextoInteligente } from '../compartidos/TextoInteligente'
 import { AnimacionEntrada } from './AnimacionEntrada'
 
 interface DetallesEventoProps {
@@ -9,8 +9,6 @@ interface DetallesEventoProps {
   horaFin: string
   nombreLugar: string
   direccion: string
-  formulaDuracion: string
-  formulaInicio: string
 }
 
 interface FilaDetalleProps {
@@ -48,10 +46,10 @@ const formatearFecha = (fechaISO: string): string => {
 
 export const DetallesEvento = ({
   fechaEvento,
+  horaInicio,
+  horaFin,
   nombreLugar,
   direccion,
-  formulaDuracion,
-  formulaInicio,
 }: DetallesEventoProps) => {
   return (
     <AnimacionEntrada>
@@ -67,19 +65,19 @@ export const DetallesEvento = ({
           <FilaDetalle
             icono={<Clock size={22} />}
             titulo="Inicio"
-            valor={<FormulaMath math={formulaInicio} />}
+            valor={<TextoInteligente texto={horaInicio} />}
             retraso={0.2}
           />
           <FilaDetalle
             icono={<Hourglass size={22} />}
             titulo="Duración"
-            valor={<FormulaMath math={formulaDuracion} />}
+            valor={<TextoInteligente texto={horaFin} />}
             retraso={0.3}
           />
           <FilaDetalle
             icono={<MapPin size={22} />}
             titulo="Lugar"
-            valor={`${nombreLugar}\n${direccion}`}
+            valor={<><TextoInteligente texto={nombreLugar} />{'\n'}<TextoInteligente texto={direccion} /></>}
             retraso={0.4}
           />
         </div>

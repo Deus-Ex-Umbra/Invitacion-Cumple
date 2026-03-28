@@ -1,20 +1,19 @@
 import { motion } from 'motion/react'
-import { FormulaMath } from '../compartidos/FormulaMath'
+import { TextoInteligente } from '../compartidos/TextoInteligente'
 import { AnimacionEntrada } from './AnimacionEntrada'
 import { TorreFichas } from './TorreFichas'
 import { CartasMezclandose } from './CartasMezclandose'
 
 interface TarjetaPrincipalProps {
   nombreCumpleanero: string
-  edadCumplir: number
-  edadFormula: string
+  edadCumplir: string
   fotoCumpleanero: string
   mensajePersonalizado: string
 }
 
 export const TarjetaPrincipal = ({
   nombreCumpleanero,
-  edadFormula,
+  edadCumplir,
   mensajePersonalizado,
 }: TarjetaPrincipalProps) => {
   return (
@@ -55,7 +54,7 @@ export const TarjetaPrincipal = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.8 }}
           >
-            <FormulaMath math={edadFormula} />
+            <TextoInteligente texto={edadCumplir} />
           </motion.div>
 
           <div className="tarjeta-foto-contenedor">
@@ -70,11 +69,11 @@ export const TarjetaPrincipal = ({
           </div>
 
           <AnimacionEntrada retraso={1.3}>
-            <h2 className="tarjeta-nombre">{nombreCumpleanero}</h2>
+            <h2 className="tarjeta-nombre"><TextoInteligente texto={nombreCumpleanero} /></h2>
           </AnimacionEntrada>
 
           <AnimacionEntrada retraso={1.5}>
-            <p className="tarjeta-mensaje">{mensajePersonalizado}</p>
+            <p className="tarjeta-mensaje"><TextoInteligente texto={mensajePersonalizado} /></p>
           </AnimacionEntrada>
 
         </motion.div>

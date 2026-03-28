@@ -17,7 +17,7 @@ export const Invitacion = () => {
         <TarjetaPrincipal
           nombreCumpleanero={c.nombreCumpleanero}
           edadCumplir={c.edadCumplir}
-          edadFormula={c.edadFormula}
+
           fotoCumpleanero={c.fotoCumpleanero}
           mensajePersonalizado={c.mensajePersonalizado}
         />
@@ -28,8 +28,7 @@ export const Invitacion = () => {
           horaFin={c.horaFin}
           nombreLugar={c.nombreLugar}
           direccion={c.direccion}
-          formulaDuracion={c.formulaDuracion}
-          formulaInicio={c.formulaInicio}
+
         />
 
         {c.mostrarMapa && (

@@ -21,8 +21,7 @@ export interface TemaInvitacion {
 
 export interface ConfiguracionInvitacion {
   nombreCumpleanero: string
-  edadCumplir: number
-  edadFormula: string
+  edadCumplir: string
   fotoCumpleanero: string
 
   fechaEvento: string
