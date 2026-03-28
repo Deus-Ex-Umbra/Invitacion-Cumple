@@ -4,11 +4,16 @@ import type { ConfiguracionInvitacion } from '../tipos/invitacion'
 
 const env = import.meta.env
 
+const nombreCumpleanero = env.VITE_NOMBRE_CUMPLEANERO || "Graviel"
 const whatsapp = (env.VITE_WHATSAPP || '+59173865661').replace('+', '')
-const mensajeWa = encodeURIComponent(env.VITE_MENSAJE_WHATSAPP || '¡Hola! Confirmo mi asistencia al cumpleaños de "Graviel" 🎂🃏')
+
+// Limpiamos las barras invertidas que Vite/dotenv puedan inyectar por error si el usuario usó \"
+const rawMensaje = env.VITE_MENSAJE_WHATSAPP || `¡Hola! Confirmo mi asistencia al cumpleaños de "${nombreCumpleanero}" 🎂🃏`
+const mensajeLimpio = rawMensaje.replace(/\\"/g, '"')
+const mensajeWa = encodeURIComponent(mensajeLimpio)
 
 export const configuracion: ConfiguracionInvitacion = {
-  nombreCumpleanero: env.VITE_NOMBRE_CUMPLEANERO || "Graviel",
+  nombreCumpleanero,
   edadCumplir: env.VITE_EDAD_CUMPLIR || "\\sum_{k=1}^{3} k! + \\int_{0}^{\\pi/2} 10 \\sin(x) \\, dx + \\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}",
   fotoCumpleanero: "/imagenes/foto-cumpleanero.jpg",
   
