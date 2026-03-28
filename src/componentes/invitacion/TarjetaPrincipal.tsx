@@ -1,6 +1,5 @@
 import { motion } from 'motion/react'
-import { BlockMath } from 'react-katex'
-import 'katex/dist/katex.min.css'
+import { FormulaMath } from '../compartidos/FormulaMath'
 import { AnimacionEntrada } from './AnimacionEntrada'
 import { TorreFichas } from './TorreFichas'
 import { CartasMezclandose } from './CartasMezclandose'
@@ -56,7 +55,7 @@ export const TarjetaPrincipal = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.8 }}
           >
-            <BlockMath math={edadFormula} />
+            <FormulaMath math={edadFormula} />
           </motion.div>
 
           <div className="tarjeta-foto-contenedor">

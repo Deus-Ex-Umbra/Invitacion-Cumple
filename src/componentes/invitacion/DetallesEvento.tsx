@@ -1,7 +1,6 @@
 import { Calendar, Clock, MapPin, Hourglass } from 'lucide-react'
 import { motion } from 'motion/react'
-import { BlockMath } from 'react-katex'
-import 'katex/dist/katex.min.css'
+import { FormulaMath } from '../compartidos/FormulaMath'
 import { AnimacionEntrada } from './AnimacionEntrada'
 
 interface DetallesEventoProps {
@@ -68,13 +67,13 @@ export const DetallesEvento = ({
           <FilaDetalle
             icono={<Clock size={22} />}
             titulo="Inicio"
-            valor={<BlockMath math={formulaInicio} />}
+            valor={<FormulaMath math={formulaInicio} />}
             retraso={0.2}
           />
           <FilaDetalle
             icono={<Hourglass size={22} />}
             titulo="Duración"
-            valor={<BlockMath math={formulaDuracion} />}
+            valor={<FormulaMath math={formulaDuracion} />}
             retraso={0.3}
           />
           <FilaDetalle
