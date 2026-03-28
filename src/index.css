@@ -1,0 +1,560 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap');
+
+:root {
+  --color-primario: #8B5CF6; /* Estos se sobreescriben desde JS basándose en .env */
+  --color-secundario: #EC4899;
+  --color-fondo: #0A0000;
+  --color-texto: #FFFFFF;
+  --color-acento: #FF0000;
+  --fuente-titulo: 'Playfair Display', serif;
+  --fuente-cuerpo: 'Inter', sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--fuente-cuerpo);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.invitacion-pagina {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem 1rem 4rem;
+  max-width: 720px;
+  margin: 0 auto;
+  /* Fondo general muy oscuro / negro */
+  background: var(--color-fondo) !important;
+}
+
+.particulas-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ===========================
+   ESTILO ALTERNADO (NEGRO/ROJO)
+   =========================== */
+
+/* Div 1: Tarjeta Principal -> Fondo Negro */
+.tarjeta-principal-seccion {
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.tarjeta-principal {
+  position: relative;
+  width: 100%;
+  padding: 3rem 2rem;
+  border-radius: 24px;
+  background: #000000; /* NEGRO PURO */
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8), 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Div 2: Detalles Evento -> Fondo Rojo Oscuro */
+.detalles-seccion {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 20px;
+  background: #2a0000; /* ROJO OSCURO */
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(100, 0, 0, 0.2);
+}
+
+/* Div 3: Mapa -> Fondo Negro */
+.seccion-mapa-bg {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 20px;
+  background: #000000; /* NEGRO PURO */
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+/* Div 4: Confirmación -> Fondo Rojo Oscuro */
+.confirmacion-contenedor {
+  width: 100%;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  text-align: center;
+  background: #2a0000; /* ROJO OSCURO */
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+/* ===========================
+   OTROS ESTILOS
+   =========================== */
+
+/* Elementos Tarjeta */
+.tarjeta-brillo {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255, 0, 0, 0.1),
+    transparent 40%
+  );
+  pointer-events: none;
+  animation: rotarBrillo 20s linear infinite;
+}
+
+@keyframes rotarBrillo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.tarjeta-icono-superior {
+  color: var(--color-acento);
+  margin-bottom: 1rem;
+}
+
+.tarjeta-subtitulo {
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.tarjeta-titulo {
+  font-family: var(--fuente-titulo);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: white; /* Blanco para destacar en negro */
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Resplandor rojo */
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.katex-contenedor {
+  font-size: 1.3rem; /* Tamaño de la ecuación */
+  color: var(--color-acento);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.3); /* Resplandor */
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+}
+.katex-display {
+  margin: 0 !important;
+}
+
+.tarjeta-foto-contenedor {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.tarjeta-foto-marco {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--color-acento), #500);
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+}
+
+.tarjeta-foto {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.tarjeta-foto-placeholder {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #400, #100);
+  border-radius: 50%;
+  font-size: 3rem;
+}
+.tarjeta-foto-placeholder::after {
+  content: '🎂';
+}
+
+.tarjeta-nombre {
+  font-family: var(--fuente-titulo);
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.tarjeta-mensaje {
+  font-size: 1.1rem;
+  font-weight: 300;
+  opacity: 0.85;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.tarjeta-sparkles {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  color: var(--color-acento);
+}
+
+/* Elementos Detalles Evento */
+.detalles-titulo-seccion {
+  font-family: var(--fuente-titulo);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: white;
+}
+
+.detalles-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detalle-fila {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3); /* Oscurece dentro del rojo oscuro */
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+
+.detalle-fila:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.detalle-icono {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #500;
+  color: white;
+}
+
+.detalle-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detalle-titulo {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.detalle-valor {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* Elementos Mapa */
+.mapa-seccion {
+  width: 100%;
+}
+
+.mapa-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--fuente-titulo);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-acento);
+}
+
+.mapa-contenedor {
+  width: 100%;
+  height: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.mapa-leaflet {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.mapa-info {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.mapa-direccion {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.mapa-direccion strong {
+  color: var(--color-acento);
+}
+
+.mapa-boton-google {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  background: #700;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(255, 0, 0, 0.2);
+  transition: box-shadow 0.3s;
+}
+
+.mapa-boton-google:hover {
+  box-shadow: 0 6px 30px rgba(255, 0, 0, 0.4);
+}
+
+/* Elementos Confirmación */
+.confirmacion-icono {
+  color: var(--color-acento);
+  margin: 0 auto 1rem;
+  animation: latido 1.5s ease-in-out infinite;
+}
+
+@keyframes latido {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.confirmacion-texto {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  color: white;
+}
+
+.confirmacion-boton {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  background: #900;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(255, 0, 0, 0.3);
+  letter-spacing: 0.02em;
+  transition: box-shadow 0.3s;
+}
+
+.confirmacion-boton:hover {
+  box-shadow: 0 12px 40px rgba(255, 0, 0, 0.5);
+}
+
+.invitacion-footer {
+  margin-top: 2rem;
+  padding: 2rem 0;
+  text-align: center;
+  opacity: 0.4;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+/* ===========================
+   CARTAS MEZCLÁNDOSE
+   =========================== */
+.cartas-mezclandose-contenedor {
+  position: relative;
+  width: 120px;
+  height: 160px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.carta-poker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 160px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  font-family: var(--fuente-cuerpo);
+  backface-visibility: hidden;
+  user-select: none;
+}
+
+.carta-ghost {
+  background: #111;
+  color: #eee;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.carta-estandar {
+  background: #fff;
+  color: #111;
+}
+
+.esquina-sup, .esquina-inf {
+  font-size: 1.1rem;
+  line-height: 1;
+  text-align: center;
+  font-weight: 700;
+}
+
+.esquina-sup {
+  align-self: flex-start;
+}
+
+.esquina-inf {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.centro {
+  font-size: 3rem;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centro.ace-picas {
+  font-size: 4rem;
+  color: #fff;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
+}
+
+.rojo {
+  color: #990000;
+}
+
+/* Fichas de Póker Decorativas */
+.ficha-poker {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.ficha-roja {
+  background: #E53E3E;
+  border: 4px dashed #FFFFFF;
+}
+
+.ficha-negra {
+  background: #1A202C;
+  border: 4px dashed #FFFFFF;
+}
+
+.ficha-centro {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #1A202C;
+}
+
+.ficha-roja .ficha-centro {
+  color: #E53E3E;
+  border: 1px solid #E53E3E;
+}
+.ficha-negra .ficha-centro {
+  color: #1A202C;
+  border: 1px solid #1A202C;
+}
+
+/* Torre de Fichas (Animación Central) */
+.torre-fichas-contenedor {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.ficha-poker-3d {
+  position: absolute;
+  top: 60px;
+  left: 36px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 8px 15px rgba(0, 0, 0, 0.6);
+  transform-style: preserve-3d;
+  /* El grosor de la ficha se simula con box-shadows múltiples */
+  border-bottom: 4px solid rgba(0,0,0,0.5);
+}
+
+@media (max-width: 480px) {
+  .tarjeta-titulo { font-size: 2.5rem; }
+  .katex-contenedor { font-size: 1rem; }
+  .tarjeta-foto-marco { width: 130px; height: 130px; }
+  .mapa-info { flex-direction: column; align-items: flex-start; }
+  .mapa-boton-google { width: 100%; justify-content: center; }
+}
